@@ -153,7 +153,7 @@ class OC_Setup {
 				if (isset($_SERVER['SERVER_SOFTWARE']) && strstr($_SERVER['SERVER_SOFTWARE'], 'Apache')) {
 					self::createHtaccess();
 				}
-				
+
 				//and we are done
 				OC_Config::setValue('installed', true);
 			}
@@ -319,9 +319,11 @@ class OC_Setup {
 				$entry.='Offending command was: '.$query.'<br />';
 				echo($entry);
 			}
+			else {
+				$query = "REVOKE ALL PRIVILEGES ON DATABASE \"$e_name\" FROM PUBLIC";
+				$result = pg_query($connection, $query);
+			}
 		}
-		$query = "REVOKE ALL PRIVILEGES ON DATABASE \"$e_name\" FROM PUBLIC";
-		$result = pg_query($connection, $query);
 	}
 
 	private static function pg_createDBUser($name, $password, $connection) {

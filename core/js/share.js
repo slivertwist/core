@@ -161,13 +161,17 @@ OC.Share={
 			if (link) {
 				html += '<div id="link">';
 				html += '<input type="checkbox" name="linkCheckbox" id="linkCheckbox" value="1" /><label for="linkCheckbox">'+t('core', 'Share with link')+'</label>';
-				html += '<a href="#" id="showPassword" style="display:none;"><img class="svg" alt="'+t('core', 'Password protect')+'" src="'+OC.imagePath('core', 'actions/lock')+'"/></a>';
 				html += '<br />';
 				html += '<input id="linkText" type="text" readonly="readonly" />';
+				html += '<input type="checkbox" name="showPassword" id="showPassword" value="1" style="display:none;" /><label for="showPassword" style="display:none;">'+t('core', 'Password protect')+'</label>';
 				html += '<div id="linkPass">';
 				html += '<input id="linkPassText" type="password" placeholder="'+t('core', 'Password')+'" />';
 				html += '</div>';
 				html += '</div>';
+                html += '<form id="emailPrivateLink" >';
+                html += '<input id="email" style="display:none; width:65%;" value="" placeholder="'+t('core', 'Email link to person')+'" type="text" />';
+                html += '<input id="emailButton" style="display:none; float:right;" type="submit" value="'+t('core', 'Send')+'" />';
+                html += '</form>';
 			}
 			html += '<div id="expiration">';
 			html += '<input type="checkbox" name="expirationCheckbox" id="expirationCheckbox" value="1" /><label for="expirationCheckbox">'+t('core', 'Set expiration date')+'</label>';
@@ -343,19 +347,27 @@ OC.Share={
 		}
 		$('#linkText').val(link);
 		$('#linkText').show('blind');
+		$('#linkText').css('display','block');
 		$('#showPassword').show();
+		$('#showPassword+label').show();
 		if (password != null) {
 			$('#linkPass').show('blind');
+			$('#showPassword').attr('checked', true);
 			$('#linkPassText').attr('placeholder', t('core', 'Password protected'));
 		}
 		$('#expiration').show();
+        $('#emailPrivateLink #email').show();
+        $('#emailPrivateLink #emailButton').show();
 	},
 	hideLink:function() {
 		$('#linkText').hide('blind');
 		$('#showPassword').hide();
+		$('#showPassword+label').hide();
 		$('#linkPass').hide();
-	},
-	dirname:function(path) {
+        $('#emailPrivateLink #email').hide();
+        $('#emailPrivateLink #emailButton').hide();
+    },
+ 	dirname:function(path) {
 		return path.replace(/\\/g,'/').replace(/\/[^\/]*$/, '');
 	},
 	showExpirationDate:function(date) {
@@ -510,16 +522,25 @@ $(document).ready(function() {
 
 	$('#showPassword').live('click', function() {
 		$('#linkPass').toggle('blind');
+		if (!$('#showPassword').is(':checked') ) {
+			var itemType = $('#dropdown').data('item-type');
+			var itemSource = $('#dropdown').data('item-source');
+			OC.Share.share(itemType, itemSource, OC.Share.SHARE_TYPE_LINK, '', OC.PERMISSION_READ);
+		} else {
+			$('#linkPassText').focus();
+		}
 	});
 
-	$('#linkPassText').live('focusout', function(event) {
-		var itemType = $('#dropdown').data('item-type');
-		var itemSource = $('#dropdown').data('item-source');
-		OC.Share.share(itemType, itemSource, OC.Share.SHARE_TYPE_LINK, $(this).val(), OC.PERMISSION_READ, function() {
-			$('#linkPassText').val('');
-			$('#linkPassText').attr('placeholder', t('core', 'Password protected'));
-		});
-		$('#linkPassText').attr('placeholder', t('core', 'Password protected'));
+	$('#linkPassText').live('focusout keyup', function(event) {
+		if ( $('#linkPassText').val() != '' && (event.type == 'focusout' || event.keyCode == 13) ) {
+			var itemType = $('#dropdown').data('item-type');
+			var itemSource = $('#dropdown').data('item-source');
+			OC.Share.share(itemType, itemSource, OC.Share.SHARE_TYPE_LINK, $('#linkPassText').val(), OC.PERMISSION_READ, function() {
+				console.log("password set to: '" + $('#linkPassText').val() +"' by event: " + event.type);
+				$('#linkPassText').val('');
+				$('#linkPassText').attr('placeholder', t('core', 'Password protected'));
+			});
+		}
 	});
 
 	$('#expirationCheckbox').live('click', function() {
@@ -546,5 +567,35 @@ $(document).ready(function() {
 			}
 		});
 	});
+
+
+    $('#emailPrivateLink').live('submit', function(event) {
+        event.preventDefault();
+        var link = $('#linkText').val();
+        var itemType = $('#dropdown').data('item-type');
+        var itemSource = $('#dropdown').data('item-source');
+        var file = $('tr').filterAttr('data-id', String(itemSource)).data('file');
+        var email = $('#email').val();
+        if (email != '') {
+            $('#email').attr('disabled', "disabled");
+            $('#email').val(t('core', 'Sending ...'));
+            $('#emailButton').attr('disabled', "disabled");
+
+            $.post(OC.filePath('core', 'ajax', 'share.php'), { action: 'email', toaddress: email, link: link, itemType: itemType, itemSource: itemSource, file: file},
+                function(result) {
+                    $('#email').attr('disabled', "false");
+                    $('#emailButton').attr('disabled', "false");
+                if (result && result.status == 'success') {
+                    $('#email').css('font-weight', 'bold');
+                    $('#email').animate({ fontWeight: 'normal' }, 2000, function() {
+                        $(this).val('');
+                    }).val(t('core','Email sent'));
+                } else {
+                    OC.dialogs.alert(result.data.message, t('core', 'Error while sharing'));
+                }
+            });
+        }
+    });
+
 
 });

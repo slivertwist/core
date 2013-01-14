@@ -89,7 +89,6 @@ var FileList={
 		$('tr').filterAttr('data-file',name).remove();
 		if($('tr[data-file]').length==0){
 			$('#emptyfolder').show();
-			$('.file_upload_filename').addClass('highlight');
 		}
 	},
 	insertElement:function(name,type,element){
@@ -118,7 +117,6 @@ var FileList={
 			$('#fileList').append(element);
 		}
 		$('#emptyfolder').hide();
-		$('.file_upload_filename').removeClass('highlight');
 	},
 	loadingDone:function(name, id){
 		var mime, tr=$('tr').filterAttr('data-file',name);
@@ -151,10 +149,9 @@ var FileList={
 			event.stopPropagation();
 			event.preventDefault();
 			var newname=input.val();
-			if (Files.containsInvalidCharacters(newname)) {
+			if (!Files.isFileNameValid(newname)) {
 				return false;
-			}
-			if (newname != name) {
+			} else if (newname != name) {
 				if (FileList.checkName(name, newname, false)) {
 					newname = name;
 				} else {
@@ -186,6 +183,13 @@ var FileList={
 			form.remove();
 			td.children('a.name').show();
 			return false;
+		});
+		input.keyup(function(event){
+			if (event.keyCode == 27) {
+				tr.data('renaming',false);
+				form.remove();
+				td.children('a.name').show();
+			}
 		});
 		input.click(function(event){
 			event.stopPropagation();
@@ -290,7 +294,7 @@ var FileList={
 	},
 	finishDelete:function(ready,sync){
 		if(!FileList.deleteCanceled && FileList.deleteFiles){
-			var fileNames=FileList.deleteFiles.join(';');
+			var fileNames=JSON.stringify(FileList.deleteFiles);
 			$.ajax({
 				url: OC.filePath('files', 'ajax', 'delete.php'),
 				async:!sync,

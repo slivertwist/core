@@ -15,7 +15,7 @@
 	<li <?php if($app['active']) echo 'class="active"'?> data-id="<?php echo $app['id'] ?>" <?php if ( isset( $app['ocs_id'] ) ) { echo "data-id-ocs=\"{$app['ocs_id']}\""; } ?>
 		data-type="<?php echo $app['internal'] ? 'internal' : 'external' ?>" data-installed="1">
 		<a class="app<?php if(!$app['internal']) echo ' externalapp' ?>" href="?appid=<?php echo $app['id'] ?>"><?php echo htmlentities($app['name']) ?></a>
-		<script type="application/javascript">
+		<script>
 			appData_<?php echo $app['id'] ?>=<?php OC_JSON::encodedPrint($app, false) ?>;
 		</script>
 		<?php  if(!$app['internal']) echo '<small class="externalapp list">3rd party</small>' ?>
@@ -29,7 +29,7 @@
 	<p class="description"></p>
 	<img src="" class="preview" />
 	<p class="appslink hidden"><a href="#" target="_blank"><?php echo $l->t('See application page at apps.owncloud.com');?></a></p>
-    <p class="license hidden"><?php echo $l->t('<span class="licence"></span>-licensed by <span class="author"></span>');?></p>
+	<p class="license hidden"><?php echo $l->t('<span class="licence"></span>-licensed by <span class="author"></span>');?></p>
 	<input class="enable hidden" type="submit" />
 	</div>
 </div>

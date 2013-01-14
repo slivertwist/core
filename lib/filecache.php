@@ -59,7 +59,7 @@ class OC_FileCache{
 	 * @param string $path
 	 * @param array data
 	 * @param string root (optional)
-	 * @note $data is an associative array in the same format as returned 
+	 * @note $data is an associative array in the same format as returned
 	 * by get
 	 */
 	public static function put($path, $data, $root=false) {
@@ -206,7 +206,7 @@ class OC_FileCache{
 
 		OC_Cache::remove('fileid/'.$root.$path);
 	}
-	
+
 	/**
 	 * return array of filenames matching the querty
 	 * @param string $query
@@ -354,22 +354,22 @@ class OC_FileCache{
 	public static function increaseSize($path, $sizeDiff, $root=false) {
 		if($sizeDiff==0) return;
 		$item = OC_FileCache_Cached::get($path);
-		//stop walking up the filetree if we hit a non-folder
-		if($item['mimetype'] !== 'httpd/unix-directory'){
+		//stop walking up the filetree if we hit a non-folder or reached to root folder
+		if($path == '/' || $path=='' || $item['mimetype'] !== 'httpd/unix-directory') {
 			return;
 		}
 		$id = $item['id'];
 		while($id!=-1) {//walk up the filetree increasing the size of all parent folders
 			$query=OC_DB::prepare('UPDATE `*PREFIX*fscache` SET `size`=`size`+? WHERE `id`=?');
 			$query->execute(array($sizeDiff, $id));
-			if($path == '' or $path =='/'){
+			$path=dirname($path);
+			if($path == '' or $path =='/') {
 				return;
 			}
-			$path=dirname($path);
 			$parent = OC_FileCache_Cached::get($path);
 			$id = $parent['id'];
 			//stop walking up the filetree if we hit a non-folder
-			if($parent['mimetype'] !== 'httpd/unix-directory'){
+			if($parent['mimetype'] !== 'httpd/unix-directory') {
 				return;
 			}
 		}

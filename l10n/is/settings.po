@@ -1,0 +1,268 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+#   <sveinng@gmail.com>, 2012-2013.
+msgid ""
+msgstr ""
+"Project-Id-Version: ownCloud\n"
+"Report-Msgid-Bugs-To: http://bugs.owncloud.org/\n"
+"POT-Creation-Date: 2013-01-12 00:09+0100\n"
+"PO-Revision-Date: 2013-01-11 23:09+0000\n"
+"Last-Translator: I Robot <owncloud-bot@tmit.eu>\n"
+"Language-Team: Icelandic (http://www.transifex.com/projects/p/owncloud/language/is/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: is\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ajax/apps/ocs.php:20
+msgid "Unable to load list from App Store"
+msgstr "Ekki tókst að hlaða lista frá forrita síðu"
+
+#: ajax/creategroup.php:10
+msgid "Group already exists"
+msgstr "Hópur er þegar til"
+
+#: ajax/creategroup.php:19
+msgid "Unable to add group"
+msgstr "Ekki tókst að bæta við hóp"
+
+#: ajax/enableapp.php:11
+msgid "Could not enable app. "
+msgstr "Gat ekki virkjað forrit"
+
+#: ajax/lostpassword.php:12
+msgid "Email saved"
+msgstr "Netfang vistað"
+
+#: ajax/lostpassword.php:14
+msgid "Invalid email"
+msgstr "Ógilt netfang"
+
+#: ajax/removegroup.php:13
+msgid "Unable to delete group"
+msgstr "Ekki tókst að eyða hóp"
+
+#: ajax/removeuser.php:15 ajax/setquota.php:15 ajax/togglegroups.php:18
+msgid "Authentication error"
+msgstr "Villa við auðkenningu"
+
+#: ajax/removeuser.php:24
+msgid "Unable to delete user"
+msgstr "Ekki tókst að eyða notenda"
+
+#: ajax/setlanguage.php:15
+msgid "Language changed"
+msgstr "Tungumáli breytt"
+
+#: ajax/setlanguage.php:17 ajax/setlanguage.php:20
+msgid "Invalid request"
+msgstr "Ógild fyrirspurn"
+
+#: ajax/togglegroups.php:12
+msgid "Admins can't remove themself from the admin group"
+msgstr "Stjórnendur geta ekki fjarlægt sjálfa sig úr stjórnendahóp"
+
+#: ajax/togglegroups.php:28
+#, php-format
+msgid "Unable to add user to group %s"
+msgstr "Ekki tókst að bæta notenda við hópinn %s"
+
+#: ajax/togglegroups.php:34
+#, php-format
+msgid "Unable to remove user from group %s"
+msgstr "Ekki tókst að fjarlægja notanda úr hópnum %s"
+
+#: js/apps.js:28 js/apps.js:67
+msgid "Disable"
+msgstr "Gera óvirkt"
+
+#: js/apps.js:28 js/apps.js:55
+msgid "Enable"
+msgstr "Virkja"
+
+#: js/personal.js:69
+msgid "Saving..."
+msgstr "Er að vista ..."
+
+#: personal.php:42 personal.php:43
+msgid "__language_name__"
+msgstr "__nafn_tungumáls__"
+
+#: templates/apps.php:10
+msgid "Add your App"
+msgstr "Bæta við forriti"
+
+#: templates/apps.php:11
+msgid "More Apps"
+msgstr "Fleiri forrit"
+
+#: templates/apps.php:27
+msgid "Select an App"
+msgstr "Veldu forrit"
+
+#: templates/apps.php:31
+msgid "See application page at apps.owncloud.com"
+msgstr "Skoða síðu forrits hjá apps.owncloud.com"
+
+#: templates/apps.php:32
+msgid "<span class=\"licence\"></span>-licensed by <span class=\"author\"></span>"
+msgstr "<span class=\"licence\"></span>-leyfi skráð af <span class=\"author\"></span>"
+
+#: templates/help.php:3
+msgid "User Documentation"
+msgstr "Notenda handbók"
+
+#: templates/help.php:4
+msgid "Administrator Documentation"
+msgstr "Stjórnenda handbók"
+
+#: templates/help.php:6
+msgid "Online Documentation"
+msgstr "Handbók á netinu"
+
+#: templates/help.php:7
+msgid "Forum"
+msgstr "Vefspjall"
+
+#: templates/help.php:9
+msgid "Bugtracker"
+msgstr "Villubókhald"
+
+#: templates/help.php:11
+msgid "Commercial Support"
+msgstr "Borgaður stuðningur"
+
+#: templates/personal.php:8
+#, php-format
+msgid "You have used <strong>%s</strong> of the available <strong>%s</strong>"
+msgstr "Þú hefur notað <strong>%s</strong> af tiltæku <strong>%s</strong>"
+
+#: templates/personal.php:12
+msgid "Clients"
+msgstr "Notendahugbúnaður"
+
+#: templates/personal.php:13
+msgid "Download Desktop Clients"
+msgstr "Hlaða niður notendahugbúnaði"
+
+#: templates/personal.php:14
+msgid "Download Android Client"
+msgstr "Hlaða niður Andoid hugbúnaði"
+
+#: templates/personal.php:15
+msgid "Download iOS Client"
+msgstr "Hlaða niður iOS hugbúnaði"
+
+#: templates/personal.php:21 templates/users.php:23 templates/users.php:82
+msgid "Password"
+msgstr "Lykilorð"
+
+#: templates/personal.php:22
+msgid "Your password was changed"
+msgstr "Lykilorði þínu hefur verið breytt"
+
+#: templates/personal.php:23
+msgid "Unable to change your password"
+msgstr "Ekki tókst að breyta lykilorðinu þínu"
+
+#: templates/personal.php:24
+msgid "Current password"
+msgstr "Núverandi lykilorð"
+
+#: templates/personal.php:25
+msgid "New password"
+msgstr "Nýtt lykilorð"
+
+#: templates/personal.php:26
+msgid "show"
+msgstr "sýna"
+
+#: templates/personal.php:27
+msgid "Change password"
+msgstr "Breyta lykilorði"
+
+#: templates/personal.php:33
+msgid "Email"
+msgstr "Netfang"
+
+#: templates/personal.php:34
+msgid "Your email address"
+msgstr "Netfangið þitt"
+
+#: templates/personal.php:35
+msgid "Fill in an email address to enable password recovery"
+msgstr "Sláðu inn netfangið þitt til að virkja endurheimt á lykilorði"
+
+#: templates/personal.php:41 templates/personal.php:42
+msgid "Language"
+msgstr "Tungumál"
+
+#: templates/personal.php:47
+msgid "Help translate"
+msgstr "Hjálpa við þýðingu"
+
+#: templates/personal.php:52
+msgid "WebDAV"
+msgstr "WebDAV"
+
+#: templates/personal.php:54
+msgid "Use this address to connect to your ownCloud in your file manager"
+msgstr "Notaðu þessa vefslóð til að tengjast ownCloud svæðinu þínu"
+
+#: templates/personal.php:63
+msgid "Version"
+msgstr "Útgáfa"
+
+#: templates/personal.php:65
+msgid ""
+"Developed by the <a href=\"http://ownCloud.org/contact\" "
+"target=\"_blank\">ownCloud community</a>, the <a "
+"href=\"https://github.com/owncloud\" target=\"_blank\">source code</a> is "
+"licensed under the <a href=\"http://www.gnu.org/licenses/agpl-3.0.html\" "
+"target=\"_blank\"><abbr title=\"Affero General Public "
+"License\">AGPL</abbr></a>."
+msgstr "Þróað af <a href=\"http://ownCloud.org/contact\" target=\"_blank\">ownCloud samfélaginu</a>, <a href=\"https://github.com/owncloud\" target=\"_blank\">forrita kóðinn</a> er skráðu með <a href=\"http://www.gnu.org/licenses/agpl-3.0.html\" target=\"_blank\"><abbr title=\"Affero General Public License\">AGPL</abbr></a>."
+
+#: templates/users.php:21 templates/users.php:81
+msgid "Name"
+msgstr "Nafn"
+
+#: templates/users.php:26 templates/users.php:83 templates/users.php:103
+msgid "Groups"
+msgstr "Hópar"
+
+#: templates/users.php:32
+msgid "Create"
+msgstr "Búa til"
+
+#: templates/users.php:35
+msgid "Default Storage"
+msgstr "Sjálfgefin gagnageymsla"
+
+#: templates/users.php:42 templates/users.php:138
+msgid "Unlimited"
+msgstr "Ótakmarkað"
+
+#: templates/users.php:60 templates/users.php:153
+msgid "Other"
+msgstr "Annað"
+
+#: templates/users.php:85 templates/users.php:117
+msgid "Group Admin"
+msgstr "Hópstjóri"
+
+#: templates/users.php:87
+msgid "Storage"
+msgstr "gagnapláss"
+
+#: templates/users.php:133
+msgid "Default"
+msgstr "Sjálfgefið"
+
+#: templates/users.php:161
+msgid "Delete"
+msgstr "Eyða"

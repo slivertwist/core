@@ -21,6 +21,19 @@
  */
 
 define('MDB2_SCHEMA_DUMP_STRUCTURE', '1');
+class DatabaseException extends Exception{
+	private $query;
+
+	public function __construct($message, $query){
+		parent::__construct($message);
+		$this->query = $query;
+	}
+
+	public function getQuery(){
+		return $this->query;
+	}
+}
+
 /**
  * This class manages the access to the database. It basically is a wrapper for
  * Doctrine with some adaptions.
@@ -190,11 +203,7 @@ class OC_DB {
 			try{
 				$result=self::$connection->prepare($query);
 			}catch(PDOException $e) {
-				$entry = 'DB Error: "'.$e->getMessage().'"<br />';
-				$entry .= 'Offending command was: '.htmlentities($query).'<br />';
-				OC_Log::write('core', $entry, OC_Log::FATAL);
-				error_log('DB error: '.$entry);
-				OC_Template::printErrorPage( $entry );
+				throw new DatabaseException($e->getMessage(), $query);
 			}
 			$result=new DoctrineStatementWrapper($result);
 		}
@@ -275,9 +284,9 @@ class OC_DB {
 		 * http://www.sqlite.org/lang_createtable.html
 		 * http://docs.oracle.com/cd/B19306_01/server.102/b14200/functions037.htm
 		 */
-		 if( $CONFIG_DBTYPE == 'pgsql' ) { //mysql support it too but sqlite doesn't
-				 $content = str_replace( '<default>0000-00-00 00:00:00</default>', '<default>CURRENT_TIMESTAMP</default>', $content );
-		 }
+		if( $CONFIG_DBTYPE == 'pgsql' ) { //mysql support it too but sqlite doesn't
+			$content = str_replace( '<default>0000-00-00 00:00:00</default>', '<default>CURRENT_TIMESTAMP</default>', $content );
+		}
 	}
 
 	/**
@@ -343,7 +352,7 @@ class OC_DB {
 				error_log('DB error: '.$entry);
 				OC_Template::printErrorPage( $entry );
 			}
-			
+
 			if($result->numRows() == 0) {
 				$query = 'INSERT INTO "' . $table . '" ("'
 					. implode('","', array_keys($input)) . '") VALUES("'
@@ -378,7 +387,7 @@ class OC_DB {
 
 		return $result->execute();
 	}
-	
+
 	/**
 	 * @brief does minor changes to query
 	 * @param string $query Query string

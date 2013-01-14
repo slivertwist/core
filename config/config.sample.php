@@ -42,6 +42,12 @@ $CONFIG = array(
 /* Time in seconds how long an user is authenticated without entering his password again before performing sensitive actions like creating or deleting users etc...*/
 "enhancedauthtime" => 15 * 60,
 
+/* A proxy to use to connect to the internet. For example "myproxy.org:88" */
+"proxy" => "",
+
+/* The optional authentication for the proxy to use to connect to the internet. The format is: [username]:[password] */
+"proxyuserpwd" => "",
+
 /* Theme to use for ownCloud */
 "theme" => "",
 
@@ -71,6 +77,9 @@ $CONFIG = array(
 
 /* Host to use for sending mail, depends on mail_smtpmode if this is used */
 "mail_smtphost" => "127.0.0.1",
+
+/* Port to use for sending mail, depends on mail_smtpmode if this is used */
+"mail_smtpport" => 25,
 
 /* authentication needed to send mail, depends on mail_smtpmode if this is used
  * (false = disable authentication)
@@ -106,6 +115,9 @@ $CONFIG = array(
  */
 // "datadirectory" => "",
 
+/* Enable maintenance mode to disable ownCloud */
+"maintenance" => false,
+
 "apps_paths" => array(
 
 /* Set an array of path for your apps directories
@@ -117,12 +129,12 @@ $CONFIG = array(
 		'path'=> '/var/www/owncloud/apps',
 		'url' => '/apps',
 		'writable' => true,
-  ),
- ),
- 'user_backends'=>array(
-    array(
-      'class'=>'OC_User_IMAP',
-      'arguments'=>array('{imap.gmail.com:993/imap/ssl}INBOX')
-    )
-  )
+	),
+),
+'user_backends'=>array(
+	array(
+		'class'=>'OC_User_IMAP',
+		'arguments'=>array('{imap.gmail.com:993/imap/ssl}INBOX')
+	)
+)
 );
