@@ -167,11 +167,14 @@
         if (!options.live) this.each(function() { get(this); });
         
         if (options.trigger != 'manual') {
-            var binder   = options.live ? 'live' : 'bind',
-                eventIn  = options.trigger == 'hover' ? 'mouseenter' : 'focus',
-                eventOut = options.trigger == 'hover' ? 'mouseleave' : 'blur';
-            this[binder](eventIn, enter)[binder](eventOut, leave);
-        }
+			var eventIn = options.trigger == 'hover' ? 'mouseenter.tipsy' : 'focus.tipsy',
+				eventOut = options.trigger == 'hover' ? 'mouseleave.tipsy' : 'blur.tipsy';
+			if (options.live) {
+				$(this.context).on(eventIn, this.selector, enter).on(eventOut, this.selector, leave);
+			} else {
+				this.bind(eventIn, enter).bind(eventOut, leave);
+			}
+		}
         
         return this;
         
